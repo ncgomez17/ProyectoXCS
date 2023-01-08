@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arquillian xmlns="http://jboss.org/schema/arquillian"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://jboss.org/schema/arquillian
+        http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+	<extension qualifier="persistence">
+		<property name="defaultDataSeedStrategy">CLEAN_INSERT</property>
+	</extension>
+
+	<container qualifier="wildfly-embedded" default="true">
+		<configuration>
+			<property name="jbossHome">target/wildfly-${wildfly.version}</property>
+			<property name="modulePath">target/wildfly-${wildfly.version}/modules</property>
+			<property name="managementPort">${wildfly.management.port}</property>
+		</configuration>
+		<protocol type="Servlet 3.0">
+			<property name="port">${wildfly.http.port}</property>
+		</protocol>
+	</container>
+</arquillian>

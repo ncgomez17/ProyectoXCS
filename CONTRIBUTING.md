@@ -52,24 +52,16 @@ desarrollar y lee bien la descripción de la misma.
 esta rama.
 4. Haz *pull* de los últimos cambios (ver [sección 6](#6-control-de-versiones-git)).
 5. Implementa la solución, incluyendo los tests (ver [sección 7](#7-tests)).
-  1. Haz un *commit* con cada parte estable (completa y testeada) que
-
-    desarrolles.
-  2. Cada vez que hagas un *commit* envíalo al repositorio central **Gitlab**
-
-    para compartirlo con el resto del equipo (ver
-    [sección 6](#6-control-de-versiones-git)).
-  3. Comprueba que la construcción funciona correctamente en el servidor de
-
-    integración continua **Jenkins**.
-  4. Si la construcción falla, sigue los pasos descritos en la
-
-    [sección 6.3](#63-pull-con-cambios-locales-no-commiteados).
+  1. Haz un *commit* con cada parte estable (completa y testeada) que desarrolles.
+  2. Cada vez que hagas un *commit* envíalo al repositorio central **Gitlab**para compartirlo con el resto del equipo (ver
+   [sección 6](#6-control-de-versiones-git)).
+  3. Comprueba que la construcción funciona correctamente en el servidor de integración continua **Jenkins**.
+  4. Si la construcción falla, sigue los pasos descritos en la [sección 6.3](#63-pull-con-cambios-locales-no-commiteados).
   5. Si la construcción es correcta, comprueba que el proyecto se ha desplegado
-
     y funciona correctamente en el servidor **WildFly** de pre-producción y que el
     repositorio Maven **Nexus** tiene una nueva versión del proyecto
     (ver [sección 4](#4-entorno-de-desarrollo)).
+    
 6. Cuando acabes la jornada de trabajo recuerda introducir las horas en la tarea
 de **Kunagi**.
 

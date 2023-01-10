@@ -1,13 +1,6 @@
-# μStories
+# Proyecto XCS
 
-## Una web para compartir microrrelatos
+## Esqueleto de un proyecto realizado con la tecnología Java EE
 
-μStories es una web en la que compartir microrrelatos, es decir, pequeñas
-grandes historias contadas en menos de 1000 caracteres. Esta web actuará como
-una red social, en la que los usuarios podrán compartir relatos, leer relatos de
-otros usuarios, seleccionar sus favoritos, puntuar los relatos y, en general,
-interaccionar con otros usuarios a través de estas pequeñas historias.
-
-En μStories también se podrán encontrar poesías en pequeñas dosis de hasta 500
-caracteres. Además, aquellos que buscan historias instantáneas, podrán encontrar
-en μStories los nanorrelatos, comprimidos en 150 caracteres.
+Este proyecto consistirá en un ejemplo de proyecto en Java EE listo para
+poder trabajar en él.

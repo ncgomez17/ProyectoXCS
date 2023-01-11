@@ -1,16 +1,16 @@
 # ¿Cómo contribuir a este proyecto?
 
 ## Tabla de contenido
-  * [1. Desarrollo de una tarea](#2-desarrollo-de-una-tarea)
-  * [2. Control de versiones (Git)](#6-control-de-versiones-git)
-    * [2.1. <em>Commits</em> con errores de construcción](#61-commits-con-errores-de-construcción)
-    * [2.2. <em>Push</em> con <em>commits</em> nuevos en el servidor remoto](#62-push-con-commits-nuevos-en-el-servidor-remoto)
-    * [2.3. Hacer <em>pull</em> ](#63-hacer-pull)
-    * [2.4. <em>Pull</em> con cambios locales no <em>commiteados</em> ](#64-pull-con-cambios-locales-no-commiteados)
-  * [3. Guía de estilo](#8-guía-de-estilo)
-    * [3.1. Código fuente](#81-código-fuente)
-    * [3.2. Control de versiones](#82-control-de-versiones)
-    * [3.3. Material adicional](#83-material-adicional)
+  * [1. Desarrollo de una tarea](#1-desarrollo-de-una-tarea)
+  * [2. Control de versiones (Git)](#2-control-de-versiones-git)
+    * [2.1. <em>Commits</em> con errores de construcción](#21-commits-con-errores-de-construcción)
+    * [2.2. <em>Push</em> con <em>commits</em> nuevos en el servidor remoto](#22-push-con-commits-nuevos-en-el-servidor-remoto)
+    * [2.3. Hacer <em>pull</em> ](#23-hacer-pull)
+    * [2.4. <em>Pull</em> con cambios locales no <em>commiteados</em> ](#24-pull-con-cambios-locales-no-commiteados)
+  * [3. Guía de estilo](#3-guía-de-estilo)
+    * [3.1. Código fuente](#31-código-fuente)
+    * [3.2. Control de versiones](#32-control-de-versiones)
+    * [3.3. Material adicional](#33-material-adicional)
 
   
 
@@ -23,19 +23,19 @@ desarrollar y lee bien la descripción de la misma.
 2. Abre el entorno de desarrollo.
 3. Verifica que te encuentras en la rama `develop`. Si no es así, cámbiate a
 esta rama.
-4. Haz *pull* de los últimos cambios (ver [sección 6](#6-control-de-versiones-git)).
-5. Implementa la solución, incluyendo los tests (ver [sección 7](#7-tests)).
-  1. Haz un *commit* con cada parte estable (completa y testeada) que desarrolles.
-  2. Cada vez que hagas un *commit* envíalo al repositorio central **Gitlab**para compartirlo con el resto del equipo (ver
-   [sección 6](#6-control-de-versiones-git)).
-  3. Comprueba que la construcción funciona correctamente en el servidor de integración continua **Jenkins**.
-  4. Si la construcción falla, sigue los pasos descritos en la [sección 6.3](#63-pull-con-cambios-locales-no-commiteados).
-  5. Si la construcción es correcta, comprueba que el proyecto se ha desplegado
+4. Haz *pull* de los últimos cambios (ver [sección 2](#2-control-de-versiones-git)).
+5. Implementa la solución, incluyendo los tests (ver manual de instalación).
+6. Haz un *commit* con cada parte estable (completa y testeada) que desarrolles.
+7. Cada vez que hagas un *commit* envíalo al repositorio central **Gitlab**para compartirlo con el resto del equipo (ver
+   [sección 2](#2-control-de-versiones-git)).
+8. Comprueba que la construcción funciona correctamente en el servidor de integración continua **Jenkins**.
+9. Si la construcción falla, sigue los pasos descritos en la [sección 2.3](#23-pull-con-cambios-locales-no-commiteados).
+10. Si la construcción es correcta, comprueba que el proyecto se ha desplegado
     y funciona correctamente en el servidor **WildFly** de pre-producción y que el
     repositorio Maven **Nexus** tiene una nueva versión del proyecto
     (ver [sección 4](#4-entorno-de-desarrollo)).
     
-6. Cuando acabes la jornada de trabajo recuerda introducir las horas en la tarea
+11. Cuando acabes la jornada de trabajo recuerda introducir las horas en la tarea
 de **Kunagi**.
 
 
@@ -119,7 +119,7 @@ continua. En el caso de que haya una construcción en ejecución **no debe hacer
 _pull_** hasta que finalice y se compruebe que ha sido con éxito.
 
 En el caso de que la construcción falle, debe esperarse a que el repositorio
-vuelva a un estado estable (ver [sección 6.1](#61-commits-con-errores-de-construcción))
+vuelva a un estado estable (ver [sección 2.1](#21-commits-con-errores-de-construcción))
 antes de hacer *pull*.
 
 ### 2.4. *Pull* con cambios locales no *commiteados*

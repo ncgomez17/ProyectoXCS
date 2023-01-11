@@ -4,7 +4,7 @@
 * [1. Configuración de un entorno de desarrollo](#1-configuración-de-un-entorno-de-desarrollo)
     * [1.1. MySQL](#11-mysql)
         * [1.1.1. Instalación con apt (Ubuntu)](#111-instalación-con-apt-ubuntu)
-        * [1.1.2 Instalación con Docker](#112-instalación-con-docker)
+        * [1.1.2 Instalación con Docker(Linux/Windows)](#112-instalación-con-docker(linux/windows))
     * [1.2. WildFly](#12-wildfly)
         * [1.2.1. Ejecución en un WildFly local](#121-ejecución-en-un-wildfly-local)
         * [1.2.2. Ejecución en un WildFly con Maven](#122-ejecución-en-un-wildfly-con-maven)
@@ -15,6 +15,7 @@
     * [2.3 Ejecución de los tests](#23-ejecución-de-los-tests)
         * [2.3.1 Ejecución de los tests en Maven](#231-ejecución-de-los-tests-en-maven)
         * [2.3.2 Ejecución de los tests en Eclipse](#232-ejecución-de-los-tests-en-eclipse)
+        * [2.3.3 Ejecución de los tests en IntelliJ](#233-ejecución-de-los-tests-en-intelliJ)
     * [2.4 Análisis de los resultados de los tests](#24-análisis-de-los-resultados-de-los-tests)
 
   
@@ -32,12 +33,15 @@ pasos:
 4. Descarga el IDE desde https://www.eclipse.org/downloads/eclipse-packages/
    o si quieres el IntelliJ https://www.jetbrains.com/es-es/idea/download/
 5. Importa el proyecto en Eclipse utilizando `Import...->Existing Maven
-   projects`, selecciona el directorio del proyecto en `Root directory` y marca
+   projects`, selecciona el directorio del proyecto root y marca
    todos los proyectos que aparezcan. Con IntelliJ sería utilizando `Open` indicamos la ruta
    principal de nuestro proyecto y le damos a OK.
 
-En la [sección 2.3](#23-ejecución-de-los-tests) aparece detallada la
+En la [sección 2.3.2](#232-ejecución-de-los-tests-en-eclipse) aparece detallada la
 configuración necesaria para ejecutar los tests desde Eclipse.
+
+En la [sección 2.3.3](#233-ejecución-de-los-tests-en-intelliJ) aparece detallada la
+configuración necesaria para ejecutar los tests desde IntelliJ.
 
 Con esto ya sería suficiente para poder empezar a trabajar en el proyecto. Si,
 además, quieres poder ejecutarlo de forma local, deberás seguir las siguientes
@@ -87,7 +91,7 @@ sudo mysql < additional-material/db/microstories-mysql.full.sql
 
 
 
-#### 1.1.2 Instalación con Docker
+#### 1.1.2 Instalación con Docker(Linux/Windows)
 
 En el caso de que no dispongas de una versión 5+ de MySQL para instalar, que ya
 tengas una versión instalada o que prefieras no instalarla directamente en tu
@@ -217,9 +221,6 @@ servidores WildFly (fichero `standalone.xml`), entonces este cambio afectará a:
   `additional-material/wildfly/v8.2.1/standalone.xml`.
 * Configuración de los servidores de test que se almacena en los directorios
   `src/test/resources-wildfly-embedded-h2` y `src/test/resources-wildfly-embedded-mysql`.
-* Configuración del servidor de pre-producción. **Nota**: En este caso será
-  necesario ponerse en contacto con el responsable del servidor.
-* Puede afectar a este mismo documento.
 
 Otro caso sería que fuese necesario desplegar algún artefacto adicional en el
 servidor. En este caso el cambio afectaría a:
@@ -227,9 +228,6 @@ servidor. En este caso el cambio afectaría a:
 * **Servidores de test**. Es probable que solo sea necesario modificar el
   fichero POM del proyecto padre para añadir el recurso del mismo modo que se
   añade el *driver* de MySQL en el perfil `wildfly-embedded-mysql`.
-* **Servidor de pre-producción**. En este caso será necesario ponerse en
-  contacto con el responsable del servidor.
-* Puede afectar a este mismo documento.
 ## 2. Tests
 Lo primero que se debe tener en cuenta a la hora de realizar tests es la
 existencia del módulo `tests`. Este proyecto está pensado para recoger las
@@ -342,6 +340,47 @@ Estos parámetros pueden establecerse en el diálogo `Run->Run Configurations...
 donde seleccionaremos la configuración de ejecución o crearemos una nueva. En
 el panel de configuración de la configuración de ejecución debemos seleccionar
 la pestaña `Arguments` e introducir estos parámetros en el campo `VM Arguments`.
+
+#### 2.3.3 Ejecución de los tests en IntelliJ
+La ejecución de los test con Arquillian desde IntelliJ, solo necesitan de 
+una configuracion de lanzamiento específica que podemos conseguir mediante la
+interfaz gráfica de este IDE:
+
+Para ejecutar los test tenemos que ir->`EditConfigurations->Add New Configuration`,
+seleccionamos Maven y luego en el run indicamos test.
+Si queremos añadir las configuraciones para arquillian solo tenemos que añadir las 
+siguientes lineas en el método run:
+
+```
+-Darquillian.launch=wildfly-embedded
+-Dwildfly.version=10.1.0.Final
+-Dwildfly.jbossHome=target/wildfly-10.1.0.Final
+-Dwildfly.modulePath=target/wildfly-10.1.0.Final/modules
+-Djava.util.logging.manager=org.jboss.logmanager.LogManager
+-Djboss.socket.binding.port-offset=20000
+-Dwildfly.http.port=28080
+-Dwildfly.management.port=29990
+```
+
+Si, además, queremos ejecutar los tests utilizando el perfil de MySQL, debemos
+añadir las propiedades del sistema:
+
+```
+-Dmysql.version=8.0.27
+-Darquillian.launch=wildfly-embedded-mysql
+```
+
+Por último, aunque los tests para el módulo JSF están desactivados por defecto,
+si se desean utilizar serán necesario descargar el *driver* Gecko
+([enlace](https://github.com/mozilla/geckodriver/releases)) y añadir el siguiente parámetro con el que se indica la ubicación del mismo en el sistema:
+
+```
+-Dwebdriver.gecko.driver=<ruta al driver nativo>
+```
+
+Al final la configuración quedaría como en la siguiente imagen:
+
+![IntelliJ configuración test](additional-material/images/intelliJ-test.png)
 
 ### 2.4 Análisis de los resultados de los tests
 Cada vez que se ejecutan los tests se generarán varios ficheros con información

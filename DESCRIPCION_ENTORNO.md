@@ -2,24 +2,23 @@
 
 ## Tabla de contenido
 * [1. Empezando](#1-empezando)
-* [2. Estructura del proyecto](#3-estructura-del-proyecto)
-* [3. Entorno de desarrollo](#4-entorno-de-desarrollo)
+* [2. Estructura del proyecto](#2-estructura-del-proyecto)
+* [3. Entorno de desarrollo](#3-entorno-de-desarrollo)
+  * [3.1 Maven 3](#31-maven-3)
+  * [3.2 Jira](#32-jira)
+  * [3.3 Git y GitHub](#33-git-y-github)
+  * [3.4 Github-Actions](#34-github-actions)
+  * [3.5 WildFly local](#35-wildfly-local)
+  * [3.6 MySQL 5+](#36-mysql-5-)
+
 
 ## 1. Empezando
 
-El proyecto μStories se desarrolla en un entorno de integración continua con
-despliegue continuo en un servidor de pre-producción (*staging*). Este entorno
+El proyecto μStories se desarrolla en un entorno de integración en GitHub. Este entorno
 está compuesto por varias herramientas que automatizan el proceso, todas ellas
 dirigidas por el POM de este proyecto.
 
-En este documento encontrarás una descripción de este entorno y las
-instrucciones para saber cómo contribuir correctamente a este proyecto.
-
-
-
-En las siguientes secciones encontrarás información que te ayudará a realizar
-este trabajo.
-
+En este documento encontrarás una descripción de este entorno.
 
 ## 2. Estructura del proyecto
 Este proyecto está estructurado en 7 módulos:
@@ -54,16 +53,17 @@ Este proyecto está estructurado en 7 módulos:
 Las herramientas que componen el entorno de integración continua son las
 siguientes:
 
-* **Maven 3**:
+### 3.1 Maven 3
   es un entorno de construcción de proyectos para Java. Esta será una herramienta
   clave, ya que es quien dirigirá todo el proyecto. Es necesario que tengas
-  instalado Maven 3 en tu equipo de desarrollo para poder construir el proyecto.
-* **Jira**:
+  instalado Maven 3 en tu equipo de desarrollo para poder construir el proyecto. 
+  
+### 3.2 Jira
   es una herramienta de gestión de proyectos Scrum. En ella encontrarás toda la
   información sobre las funcionalidades desarrolladas y por desarrollar, el
   alcance de las publicaciones, el estado de desarrollo, etc. Puedes acceder a
   través del siguiente [enlace](http://www.sing-group.org/dt/kunagi).
-* **Git y Github**:
+### 3.3 Git y GitHub
   Git es el sistema de control de versiones que se utiliza en el proyecto. Es un
   sistema de control de versiones distribuido que facilita la colaboración entre
   desarrolladores. Es necesario que tengas instalado Git en tu sistema para poder
@@ -73,7 +73,7 @@ siguientes:
   además de proporcionar alguna otra funcionalidad que mejora la colaboración.
   Puedes acceder a través del siguiente
   [enlace](http://www.sing-group.org/dt/gitlab).
-* **Github-Actions**:
+### 3.4 Github-Actions
   es un servidor de integración continua. Este servidor está configurado para
   vigilar el repositorio Git y, ante cualquier cambio en la rama `develop`,
   lanzar una construcción completa del sistema. Para cada construcción se
@@ -86,29 +86,12 @@ siguientes:
   mayor prioridad del equipo.
   Puedes acceder a través del siguiente
   [enlace](http://www.sing-group.org/dt/jenkins).
-* **Nexus**:
-  es un gestor de repositorios Maven. Lo utilizaremos para publicar el proyecto
-  empaquetado en formato Maven. Puedes acceder a través del siguiente
-  [enlace](http://www.sing-group.org/dt/nexus)
-  Utilizaremos dos de los repositorios de este servidor:
-    * `Snapshots`: en el que se publicarán las versiones de trabajo del proyecto.
-    * `Releases`: en el que se publicarán las versiones publicables del proyecto.
-* **WildFly de pre-producción**:
-  en este contenedor se desplegará el sistema cada vez que una construcción se
-  complete con éxito en Jenkins. Las URLs en las que se desplegarán las
-  aplicaciones del proyecto son:
-    * JSF: http://www.sing-group.org/microstories-2223-teamA/jsf
-    * REST: http://www.sing-group.org/microstories-2223-teamA/rest
-* **WildFly local**:
+### 3.5 WildFly local
   Aunque el proyecto está configurado para ser ejecutado directamente desde
-  Maven, también es posible desplegarlo en un servidor WildFly local. En la
-  [sección 5.1](#511-ejecución-en-un-wildfly-local) encontrarás una explicación
-  de cómo instalarlo y configurarlo.
-* **MySQL 5+**:
+  Maven, también es posible desplegarlo en un servidor WildFly local. En el
+  manual de instalación encontrarás una explicación de cómo instalarlo y configurarlo.
+### 3.6 MySQL 5+:
   es el sistema gestor de base de datos (SGDB) que utilizará el sistema
   definitivo. En la explicación de cómo ejecutar el sistema en local utilizaremos
   este SGBD, por lo que deberás tenerlo instalado en tu equipo.
 
-En el siguiente diagrama se detallan las distintas secciones que componen el
-entorno de desarrollo, junto con las distintas tecnologías y herramientas
-empleadas en cada sección.

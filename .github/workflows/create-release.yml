@@ -24,11 +24,18 @@ jobs:
 
       - name: Build project
         run: mvn clean package
-
+      - name: Fetching current version
+        id: version
+        run: |
+          CURRENT_VERSION=`curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{github.repository}}/actions/secrets/NEW_VERSION`
+          echo "::set-output name=current_version::${CURRENT_VERSION}"
       - name: Increment version
         run: |
-          export NEW_VERSION=$(echo $NEW_VERSION | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++;
-          $NF=sprintf("%0*d", length($NF), ($NF+1)%(10^length($NF))); print}') | tee ${{ env.NEW_VERSION}}
+          CURRENT_VERSION=${{steps.version.outputs.current_version}}
+          export NEW_VERSION=$(echo $CURRENT_VERSION | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; $NF=sprintf("%0*d", length($NF), ($NF+1)%(10^length($NF))); print}')
+      - name: Update version
+        run: |
+          curl -X PATCH -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -d "{\"value\":\"
 
       - name: Create release
         uses: actions/create-release@v1

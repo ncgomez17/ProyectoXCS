@@ -1,41 +1,42 @@
-# ¿Cómo contribuir a este proyecto?
+# Manual de instalación
 
 ## Tabla de contenido
-* [1. Configuración de un entorno de desarrollo](#5-configuración-de-un-entorno-de-desarrollo)
-    * [1.1. MySQL](#51-mysql)
-        * [1.1.1. Instalación con apt (Ubuntu)](#511-instalación-con-apt-ubuntu)
-        * [1.1.2 Instalación con Docker](#512-instalación-con-docker)
-    * [1.2. WildFly](#51-wildfly)
-        * [1.2.1. Ejecución en un WildFly local](#511-ejecución-en-un-wildfly-local)
-        * [1.2.2. Ejecución en un WildFly con Maven](#512-ejecución-en-un-wildfly-con-maven)
-        * [1.2.3. Cambios que afecten a la configuración de WildFly](#513-cambios-que-afecten-a-la-configuración-de-wildfly)
-* [2. Tests](#7-tests)
-    * [2.1 Tests por módulo](#71-tests-por-módulo)
-    * [2.2 El módulo tests](#72-el-módulo-test)
-    * [2.3 Ejecución de los tests](#73-ejecución-de-los-tests)
-        * [2.3.1 Ejecución de los tests en Maven](#731-ejecución-de-los-tests-en-maven)
-        * [2.3.2 Ejecución de los tests en Eclipse](#732-ejecución-de-los-tests-en-eclipse)
-    * [2.4 Análisis de los resultados de los tests](#74-análisis-de-los-resultados-de-los-tests)
+* [1. Configuración de un entorno de desarrollo](#1-configuración-de-un-entorno-de-desarrollo)
+    * [1.1. MySQL](#11-mysql)
+        * [1.1.1. Instalación con apt (Ubuntu)](#111-instalación-con-apt-ubuntu)
+        * [1.1.2 Instalación con Docker](#112-instalación-con-docker)
+    * [1.2. WildFly](#12-wildfly)
+        * [1.2.1. Ejecución en un WildFly local](#121-ejecución-en-un-wildfly-local)
+        * [1.2.2. Ejecución en un WildFly con Maven](#122-ejecución-en-un-wildfly-con-maven)
+        * [1.2.3. Cambios que afecten a la configuración de WildFly](#123-cambios-que-afecten-a-la-configuración-de-wildfly)
+* [2. Tests](#2-tests)
+    * [2.1 Tests por módulo](#21-tests-por-módulo)
+    * [2.2 El módulo tests](#22-el-módulo-test)
+    * [2.3 Ejecución de los tests](#23-ejecución-de-los-tests)
+        * [2.3.1 Ejecución de los tests en Maven](#231-ejecución-de-los-tests-en-maven)
+        * [2.3.2 Ejecución de los tests en Eclipse](#232-ejecución-de-los-tests-en-eclipse)
+    * [2.4 Análisis de los resultados de los tests](#24-análisis-de-los-resultados-de-los-tests)
 
-
-![Entorno desarrollo](additional-material/images/environment.jpg)
-
+  
 ## 1. Configuración de un entorno de desarrollo
 Empezar a trabajar en el proyecto es tan sencillo como seguir los siguientes
 pasos:
 
 1. Instala Git y Maven. Si estás en un entorno Ubuntu es tan sencillo como
-   ejecutar `sudo apt-get install git maven`. También es recomendable que instales
-   algún visor de Git como `gitk` o `qgit`.
+   ejecutar `sudo apt-get install git maven`. Si estás usando Windows es tan fácil como 
+   seguir el siguiente tutorial http://codigoelectronica.com/blog/instalar-maven-en-windows
+   También es recomendable que instales algún visor de Git como `gitk` o `qgit`.
 2. Clona el repositorio Git utilizando el comando:
-   `git clone http://sing-group.org/dt/gitlab/dgss-2223-teamA/microstories.git`
-3. Instala Eclipse for Java EE (opcional pero recomendado):
-1. Descarga el IDE desde https://www.eclipse.org/downloads/eclipse-packages/
-2. Importa el proyecto en Eclipse utilizando `Import...->Existing Maven
+   `git clone https://github.com/ncgomez17/ProyectoXCS.git`
+3. Instala Eclipse for Java EE (opcional pero recomendado) o puedes usar también el IDE IntelliJ IDEA:
+4. Descarga el IDE desde https://www.eclipse.org/downloads/eclipse-packages/
+   o si quieres el IntelliJ https://www.jetbrains.com/es-es/idea/download/
+5. Importa el proyecto en Eclipse utilizando `Import...->Existing Maven
    projects`, selecciona el directorio del proyecto en `Root directory` y marca
-   todos los proyectos que aparezcan.
+   todos los proyectos que aparezcan. Con IntelliJ sería utilizando `Open` indicamos la ruta
+   principal de nuestro proyecto y le damos a OK.
 
-En la [sección 7.3](#73-ejecución-de-los-tests-en-eclipse) aparece detallada la
+En la [sección 2.3](#23-ejecución-de-los-tests) aparece detallada la
 configuración necesaria para ejecutar los tests desde Eclipse.
 
 Con esto ya sería suficiente para poder empezar a trabajar en el proyecto. Si,
@@ -142,7 +143,7 @@ En cualquiera de las siguientes configuraciones, la aplicación estará disponib
 La ejecución del proyecto en un WildFly local requiere la instalación del propio
 servidor, de un SGBD MySQL y la configuración del servidor WildFly.
 
-Por lo tanto, para configurar un WildFly local debes instala WildFly como
+Por lo tanto, para configurar un WildFly local debes instalar WildFly como
 servidor local. Para ello, debes descargar una versión
 compatible de http://wildfly.org/downloads/ y descomprimirla en un directorio
 local.

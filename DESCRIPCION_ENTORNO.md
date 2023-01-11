@@ -16,7 +16,6 @@ En este documento encontrarás una descripción de este entorno y las
 instrucciones para saber cómo contribuir correctamente a este proyecto.
 
 
-![Flujo de vida de desarrollo](additional-material/images/lifecycle.jpg)
 
 En las siguientes secciones encontrarás información que te ayudará a realizar
 este trabajo.

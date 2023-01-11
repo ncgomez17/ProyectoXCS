@@ -1,0 +1,98 @@
+:root {
+  --jumbotron-padding-y: 1rem;
+}
+
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #fff;
+}
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * 2);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+  }
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+footer p {
+  margin-bottom: .25rem;
+}
+
+/* CUSTOMIZE LOGO
+-------------------------------------------------- */
+
+#microstories-logo{
+  width:20px;
+  height: 20px;
+  margin-right: 5px;
+  position: relative;
+  top:1px;
+}
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  bottom: 3rem;
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel-item {
+  height: 32rem;
+  background-color: #777;
+}
+.carousel-item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 32rem;
+}
+
+/* Explore button
+-------------------------------------------------- */
+
+.explore-btn {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  background-color: #f8f9fa;
+}
+
+
+/* SEARCH
+-------------------------------------------------- */
+
+.form-inline{
+  display: flex;
+  justify-content: center;
+}
+
+.pagination{
+  display: flex;
+  justify-content: center;
+}

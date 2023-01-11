@@ -38,11 +38,6 @@ esta rama.
 6. Cuando acabes la jornada de trabajo recuerda introducir las horas en la tarea
 de **Kunagi**.
 
-En el siguiente diagrama de flujo encontrarás una descripción más detallada de
-este proceso, incluyendo el trabajo que realiza el servidor de integración
-continua.
-
-![Flujo de vida de desarrollo](additional-material/images/lifecycle.jpg)
 
 En las siguientes secciones encontrarás información que te ayudará a realizar
 este trabajo.

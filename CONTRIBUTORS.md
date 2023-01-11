@@ -7,9 +7,4 @@ Los profesores que han participado en este proyecto han sido:
 * David Nicholas Olivieri Cecchi
 
 Los alumnos que han participado en este proyecto han sido:
-* Nicolas Cid Gómez
-* Bruno Cruz González
-* Brais Domínguez Álvarez
-* Patricia Martín Pérez
-* Julio Patricio Da Silva
-* Álvaro Suárez Feijoo
+* Nicolás Cid Gómez

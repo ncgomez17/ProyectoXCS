@@ -7,4 +7,5 @@ Los profesores que han participado en este proyecto han sido:
 * David Nicholas Olivieri Cecchi
 
 Los alumnos que han participado en este proyecto han sido:
-* Nicolas Cid Gómez
+* Nicolás Cid Gómez
+

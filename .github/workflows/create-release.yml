@@ -28,8 +28,9 @@ jobs:
           echo "::set-output name=current_version::${CURRENT_VERSION}"
       - name: Increment version
         run: |
-          CURRENT_VERSION=${{steps.version.outputs.current_version}}
-          export NEW_VERSION=$(echo $CURRENT_VERSION | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; $NF=sprintf("%0*d", length($NF), ($NF+1)%(10^length($NF))); print}')
+            CURRENT_VERSION=${{steps.version.outputs.current_version}}
+            export NEW_VERSION=$(echo $CURRENT_VERSION | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; $NF=sprintf("%0*d", length($NF), ($NF+1)%(10^length($NF))); print}')
+            echo "::set-env name=NEW_VERSION::$NEW_VERSION"
       - name: Update version
         run: |
           curl -X PATCH -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -d "{\"name\":\"NEW_VERSION\",\"value\":\"$NEW_VERSION\"}" https://api.github.com/repos/${{github.repository}}/actions/secrets/NEW_VERSION

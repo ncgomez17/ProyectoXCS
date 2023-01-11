@@ -7,5 +7,5 @@ package es.uvigo.esei.xcs.domain.entities;
  *
  */
 public enum AnimalType {
-	DOG, CAT, BIRD;
+	DOG, CAT, BIRD, FISH;
 }

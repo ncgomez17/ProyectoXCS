@@ -20,6 +20,12 @@ jobs:
         with:
           java-version: 1.8
 
+      - name: Build and test project
+        run: mvn clean test
+
+      - name: Build and Install
+        run: mvn clean install
+
       - name: Build project
         run: mvn clean package
         

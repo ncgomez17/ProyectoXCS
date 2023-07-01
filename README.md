@@ -4,3 +4,4 @@
 
 Este proyecto consistirá en un ejemplo de proyecto en Java EE listo para
 poder trabajar en él.
+ Esto es una prueba

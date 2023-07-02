@@ -3,14 +3,13 @@
 ## Tabla de contenido
   * [1. Desarrollo de una tarea](#1-desarrollo-de-una-tarea)
   * [2. Control de versiones (Git)](#2-control-de-versiones-git)
-    * [2.1. <em>Commits</em> con errores de construcción](#21-commits-con-errores-de-construcción)
-    * [2.2. <em>Push</em> con <em>commits</em> nuevos en el servidor remoto](#22-push-con-commits-nuevos-en-el-servidor-remoto)
-    * [2.3. <em>Pull</em> con cambios locales no <em>commiteados</em> ](#24-pull-con-cambios-locales-no-commiteados)
+    * [2.1. *Push* con *commits* nuevos en el servidor remoto](#21-Push-con-commits-nuevos-en-el-servidor-remoto)
+    * [2.2. <em>Pull</em> con cambios locales no <em>commiteados</em> ](#22-pull-con-cambios-locales-no-commiteados)
   * [3. Guía de estilo](#3-guía-de-estilo)
     * [3.1. Código fuente](#31-código-fuente)
     * [3.2. Control de versiones](#32-control-de-versiones)
-    * [3.3. Convenciones de Prefijos de Commits](#33-convenciones de Prefijos de Commits)
-    * [3.4 Vincular una tarea de Jira a un issue de GitHub](#34-vincular una tarea de Jira a un issue de GitHub)
+    * [3.3. Convenciones de Prefijos de Commits](#33-convenciones-de-Prefijos-de-Commits)
+    * [3.4 Vincular una tarea de Jira a un issue de GitHub](#34-vincular-una-tarea-de-Jira-a-un-issue-de-GitHub)
 
   
 
@@ -55,7 +54,7 @@ servidor de integración continua. Por último, una vez se mergea la rama se deb
 realizar directamente desde **Github** que nos ofrecerá está opción una vez mergeemos.
 
 
-### 2.2. *Push* con *commits* nuevos en el servidor remoto
+### 2.1. *Push* con *commits* nuevos en el servidor remoto
 Si se desea hacer un *push* a **Github** en el cual hay *commits* que
 nuevos que no tenemos en local, entonces Git muestra un error en el que nos
 indica que debemos hacer un *pull* antes de poder hacer *push*.
@@ -84,7 +83,7 @@ Con esta configuración ya no tendríamos que añadir el modificador `--rebase` 
 hacer *pull*.
 
 
-### 2.3. *Pull* con cambios locales no *commiteados*
+### 2.2. *Pull* con cambios locales no *commiteados*
 En caso de que nos encontremos en medio de un *commit* (no se ha completado los
 cambios necesarios para realizar un *commit*) y deseemos descargar nuevos
 *commits* del servidor central, podemos hacerlo utilizando los comandos:

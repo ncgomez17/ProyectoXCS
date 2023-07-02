@@ -378,10 +378,6 @@ si se desean utilizar serán necesario descargar el *driver* Gecko
 -Dwebdriver.gecko.driver=<ruta al driver nativo>
 ```
 
-Al final la configuración quedaría como en la siguiente imagen:
-
-![IntelliJ configuración test](additional-material/images/intelliJ-test.png)
-
 ### 2.4 Análisis de los resultados de los tests
 Cada vez que se ejecutan los tests se generarán varios ficheros con información
 sobre los resultados. Concretamente, se generarán dos tipos de informes:

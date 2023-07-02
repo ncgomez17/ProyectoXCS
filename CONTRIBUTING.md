@@ -5,12 +5,12 @@
   * [2. Control de versiones (Git)](#2-control-de-versiones-git)
     * [2.1. <em>Commits</em> con errores de construcción](#21-commits-con-errores-de-construcción)
     * [2.2. <em>Push</em> con <em>commits</em> nuevos en el servidor remoto](#22-push-con-commits-nuevos-en-el-servidor-remoto)
-    * [2.3. Hacer <em>pull</em> ](#23-hacer-pull)
-    * [2.4. <em>Pull</em> con cambios locales no <em>commiteados</em> ](#24-pull-con-cambios-locales-no-commiteados)
+    * [2.3. <em>Pull</em> con cambios locales no <em>commiteados</em> ](#24-pull-con-cambios-locales-no-commiteados)
   * [3. Guía de estilo](#3-guía-de-estilo)
     * [3.1. Código fuente](#31-código-fuente)
     * [3.2. Control de versiones](#32-control-de-versiones)
-    * [3.3. Material adicional](#33-material-adicional)
+    * [3.3. Convenciones de Prefijos de Commits](#33-convenciones de Prefijos de Commits)
+    * [3.4 Vincular una tarea de Jira a un issue de GitHub](#34-vincular una tarea de Jira a un issue de GitHub)
 
   
 
@@ -18,25 +18,20 @@
 ## 1. Desarrollo de una tarea
 El proceso habitual para realizar una tarea será, normalmente, el siguiente:
 
-1. En **Kunagi** selecciona la tarea de la que seas responsable que deseas
-desarrollar y lee bien la descripción de la misma.
-2. Abre el entorno de desarrollo.
+1. En **Jira** selecciona la tarea de la que seas responsable que deseas
+desarrollar y lee bien la descripción de la misma y márcala en curso.
+2. Desde la propia tarea le daremos a crear rama, el nombre de la rama tendrá el siguiente estilo: (nombre de la incidencia)-(branch-name).
 3. Verifica que te encuentras en la rama `develop`. Si no es así, cámbiate a
-esta rama.
+esta rama y hacer un git checkout -b (nombre de la incidencia)-<branch-name>.
 4. Haz *pull* de los últimos cambios (ver [sección 2](#2-control-de-versiones-git)).
 5. Implementa la solución, incluyendo los tests (ver manual de instalación).
 6. Haz un *commit* con cada parte estable (completa y testeada) que desarrolles.
-7. Cada vez que hagas un *commit* envíalo al repositorio central **Gitlab**para compartirlo con el resto del equipo (ver
+7. Cada vez que hagas un *commit* envíalo al repositorio central **Github** para compartirlo con el resto del equipo (ver
    [sección 2](#2-control-de-versiones-git)).
-8. Comprueba que la construcción funciona correctamente en el servidor de integración continua **Jenkins**.
-9. Si la construcción falla, sigue los pasos descritos en la [sección 2.3](#23-pull-con-cambios-locales-no-commiteados).
-10. Si la construcción es correcta, comprueba que el proyecto se ha desplegado
-    y funciona correctamente en el servidor **WildFly** de pre-producción y que el
-    repositorio Maven **Nexus** tiene una nueva versión del proyecto
-    (ver [sección 4](#4-entorno-de-desarrollo)).
-    
-11. Cuando acabes la jornada de trabajo recuerda introducir las horas en la tarea
-de **Kunagi**.
+8. Una vez terminada la tarea se deberá hacer una pull-request a `develop`, se deberá comprobar que ha pasado todos los actions de github correctamente.
+9. Una vez que todo está correcto marcar la tarea de **Jira** como finalizada y ser mergeará la rama a develop desde **Github**.
+10. Cuando acabes la jornada de trabajo recuerda introducir las horas en la tarea
+de **Jira**.
 
 
 En las siguientes secciones encontrarás información que te ayudará a realizar
@@ -48,45 +43,20 @@ sencillo ya que solo utilizaremos dos ramas:
 
 * `master`: a esta rama solo se enviarán los *commits* cuando se llegue a una
 versión estable y publicable (una *release*). Estas versiones deberán estar
-etiquetadas con el número de versión correspondiente.
-* `develop`: esta será la rama principal de trabajo. Los *commits* que se envíen
-deben ser estables, lo que supone que el código debe incluir tests y todos deben
-superarse existosamente al construir la aplicación en local.
-* `tmp-`: las ramas con el prefijo `tmp-` son ramas temporales. Cada pareja
-  (*sprint* I) o desarrollador (*sprint* II) solo podrá tener una única rama
-  temporal, que deberá eliminar de los repositorios local y remoto en el momento
-  que ya no sean necesarias. Las ramas temporales siempre deben crearse desde la
-  rama `develop`. La pareja o desarrollador propietarios de la rama podrán hacer
-  `push` y `pull`, mientras que el resto solo podrán hacer `pull`. Este tipo de
-  ramas admite cualquier tipo de *commit* (p.ej. código incompleto, código que no
-  compila, código sin tests, etc.) y, por tanto, no serán controladas por el
-  servidor de integración continua. Por último, el nombre de la rama debe ser:
-  * `tmp-<pareja>`: donde `<pareja>` es el identificador de la pareja
-  propietaria.
-  * `tmp-<login>`: donde `<login>` es el *login* del usuario que la crea en el
-  servidor Gitlab.
+etiquetadas con el número de versión correspondiente.Existe un action que se encargará de etiquetar la release
+una vez se suba algún cambio a `master`.
+* `develop`: esta será la rama principal de trabajo. A develop solo se podrán mergear otras ramas
+mediante pull-request.
+* `<número de la incidencia>-<branch-name>`: las ramas tendrán la siguiente estructura: nombre de la incidencia
+seguido del nombre que le queramos poner a la rama. Estas ramas serán creadas a partir de la rama `develop`.
+Este tipo de ramas admite cualquier tipo de *commit* (p.ej. código incompleto, código que no
+compila, código sin tests, etc.) y, por tanto, no serán controladas por el
+servidor de integración continua. Por último, una vez se mergea la rama se debe eliminar esta, esto se podrá
+realizar directamente desde **Github** que nos ofrecerá está opción una vez mergeemos.
 
-### 2.1. *Commits* con errores de construcción
-Ambas ramas estarán controladas por el servidor de integración que ejecutará
-los tests inmediatamente después de que se haga un *commit*. En el caso de que
-una **construcción falle** en Jenkis es muy importante **deshacer el último
-_commit_ para volver a un estado estable**.
-
-Aunque existen varias formas de hacer esto, la forma más directa es:
-
-```
-git push origin +HEAD^:develop
-```
-
-Este comando fuerza a que la rama `develop` remota se sitúe en el *commit*
-anterior a `HEAD`, ya que `HEAD` es el *commit* conflictivo. El *commit* seguirá
-existiendo en local y se espera que tras corregir los errores se realice un
-`git commit --amend`.
-Si se desea descartar el *commit* local pero mantener el estado de los ficheros,
-puede utilizarse un `git reset --mixed HEAD^`.
 
 ### 2.2. *Push* con *commits* nuevos en el servidor remoto
-Si se desea hacer un *push* a un servidor remoto en el cual hay *commits* que
+Si se desea hacer un *push* a **Github** en el cual hay *commits* que
 nuevos que no tenemos en local, entonces Git muestra un error en el que nos
 indica que debemos hacer un *pull* antes de poder hacer *push*.
 
@@ -113,16 +83,8 @@ git config pull.rebase true
 Con esta configuración ya no tendríamos que añadir el modificador `--rebase` al
 hacer *pull*.
 
-### 2.3. Hacer *pull*
-Antes de hacer un *pull* siempre se debe revisar el servidor de integración
-continua. En el caso de que haya una construcción en ejecución **no debe hacerse
-_pull_** hasta que finalice y se compruebe que ha sido con éxito.
 
-En el caso de que la construcción falle, debe esperarse a que el repositorio
-vuelva a un estado estable (ver [sección 2.1](#21-commits-con-errores-de-construcción))
-antes de hacer *pull*.
-
-### 2.4. *Pull* con cambios locales no *commiteados*
+### 2.3. *Pull* con cambios locales no *commiteados*
 En caso de que nos encontremos en medio de un *commit* (no se ha completado los
 cambios necesarios para realizar un *commit*) y deseemos descargar nuevos
 *commits* del servidor central, podemos hacerlo utilizando los comandos:
@@ -161,7 +123,7 @@ normas:
 
 * **Contenido de los _commits_**: los *commits* deben ser completos en el
 sentido de que no deben romper la construcción. Además, el código debe estar
-probado, incluyendo los tests descritos en la [sección 7](#7-tests), para que el
+probado, incluyendo los tests , para que el
 resto de desarrolladores puedan confiar en el código. Es muy recomendable
 revisar los informes de tests y de cobertura antes de hacer un *commit*.
 * **Formato**: el formato de los *commits* deberá respetar las siguientes
@@ -170,10 +132,10 @@ revisar los informes de tests y de cobertura antes de hacer un *commit*.
   * Limitar el tamaño de línea a 80 columnas. Si se utiliza Eclipse, esto se
   hace de forma automática.
   * Primera línea descriptiva de lo que hace el *commit*:
-    * Si está relacionado con alguna tarea concreta de las descritas en Kunagi,
-    debe comenzar con el identificador de la tarea (p.ej. "tsk1 Adds...").
+    * Si está relacionado con alguna tarea concreta de las descritas en Jira,
+    debe comenzar con el identificador de la tarea (p.ej. "XCS-1 Adds...").
     * Si está relacionado con varias tareas, su número se separará con un guión
-    (p.ej. "tsk1-2-13 Fixes...").
+    (p.ej. "XCS-1-2-13 Fixes...").
     * Debe estar redactada en tercera persona del presente (p.ej. *Adds...*,
       *Improves...*, *Modifies...*, etc.).
     * No debe llevar punto al final.
@@ -187,42 +149,57 @@ al menos, 2-3 *commits* cada semana. Además, deberán estar distribuidos a lo
 largo de toda la semana, evitando, especialmente, realizar todos los *commits*
 al final de la semana, pues esto afectaría a la integración continua.
 * **Frecuencia de _push_**: siempre que se haga un *commit* debe hacerse un
-*push*. La única excepción a esta regla es que estemos haciendo pruebas locales
-para evaluar una posible solución. En tal caso, es recomendable que esto se
-haga en una rama independiente para evitar enviar *commits* accidentalmente a
-la rama *develop* remota.
+*push*.
+* El propio **Github** mediante los actions se encargará de que si existen errores en las pull-request
+no deje mergear la rama a develop.
 
-### 3.3. Material adicional
-El proyecto incluye un módulo `additional-material` cuya función es recoger
-ficheros adicionales que no forman parte de los desplegables, pero que son
-necesarios para el funcionamiento de la aplicación o pueden ayudar en el
-desarrollo.
+### 3.3 Convenciones de Prefijos de Commits
 
-Por lo tanto, el contenido de este módulo debe actualizarse cuando corresponda
-durante el desarrollo. En concreto, las dos situaciones en las que se debe
-actualiar son:
-  * **Creación de una nueva entidad**: cuando se crear una nueva entidad en el
-    módulo de dominio será necesario actualizar el contenido del subdirectorio
-    `db`. Este subdirectorio debe contener los ficheros:
-    * `microstories-mysql.full.sql`: este fichero debe contener las consultas
-    para crear la base de datos y sus tablas, crear el usuario necesario
-    para la aplicación con los permisos correspondientes y añadir datos de
-    ejemplo para poder probar la aplicación. Es decir, un administrador que
-    instale la aplicación debería poder, simplemente, ejecutando este *script*
-    en un SGBD MySQL, empezar a probar la aplicación.
-    * `microstories-mysql.creation.sql`: este fichero debe contener las
-    consultas para crear la base de datos y sus tablas.
-    * `microstories-mysql.data.sql`: este fichero debe contener las consultas
-    para añadir datos de ejemplo para poder probar la aplicación.
-    * `microstories-mysql.delete.sql`: este fichero debe contener las consultas
-    para eliminar todos los datos de las tablas de la base de datos y resetear
-    los contadores autoincrementales.
-    * `microstories-mysql.drop.sql`: este fichero debe contener las consultas
-    para eliminar todas las tablas de la base de datos.
-  * **Cambio en la configuración de WildFly**: en el caso de añadir algún cambio
-    en la configuración del servidor que sea necesario para la ejecución de la
-    aplicación (p.ej. configurar un servidor de correo), deberán actualizarse los
-    ficheros de configuración de WildFly del subdirectorio `wildfly`. En concreto,
-    un administrador que instale la aplicación, debe poder copiar el fichero de
-    configuración correspondiente a su servidor y arrancarla sin problemas,
-    habiendo configurado la base de datos previamente.
+Al contribuir a un proyecto, es común utilizar prefijos en los mensajes de commit para proporcionar una estructura clara y consistente en el historial de cambios. Estos prefijos ayudan a identificar rápidamente el propósito y el tipo de cambio realizado en un commit. A continuación se presentan algunos prefijos comunes y sus significados:
+
+- **feat**: Se utiliza para nuevos desarrollos o características agregadas al proyecto.
+
+  Ejemplo de mensaje de commit: `feat: Add user authentication functionality`
+
+- **fix**: Indica la corrección de un error o un problema existente en el código.
+
+  Ejemplo de mensaje de commit: `fix: Fix validation error in registration form`
+
+- **docs**: Se utiliza para cambios o mejoras en la documentación del proyecto.
+
+  Ejemplo de mensaje de commit: `docs: Update requirements section in README file`
+
+- **style**: Indica cambios que no afectan la lógica del código, sino que mejoran su formato, estructura o estilo.
+
+  Ejemplo de mensaje de commit: `style: Apply consistent code formatting using linter`
+
+- **refactor**: Se utiliza cuando se realiza una modificación en el código que no soluciona un error ni agrega una nueva funcionalidad, pero mejora su estructura o rendimiento.
+
+  Ejemplo de mensaje de commit: `refactor: Rearrange project directory structure`
+
+- **test**: Indica cambios en las pruebas unitarias o en la configuración de las pruebas.
+
+  Ejemplo de mensaje de commit: `test: Add unit tests for navigation component`
+
+- **chore**: Se utiliza para cambios en tareas administrativas, actualizaciones de dependencias, ajustes de configuración u otras tareas generales.
+
+  Ejemplo de mensaje de commit: `chore: Update project dependencies to the latest versions`
+
+
+### 3.4 Vincular una tarea de Jira a un issue de GitHub
+
+Para mantener un seguimiento y una trazabilidad claros entre el trabajo realizado en Jira y los cambios correspondientes en GitHub, es útil vincular una tarea de Jira a un issue específico en GitHub. Esto permite tener una conexión directa entre los elementos de trabajo en Jira y los cambios de código en GitHub. Aquí se explica cómo realizar esta vinculación:
+
+1. **Crear una tarea en Jira**: En Jira, crea una tarea o identifica una tarea existente que esté relacionada con los cambios que planeas realizar en GitHub.
+
+2. **Copiar la URL del issue en GitHub**: En GitHub, navega hasta el issue correspondiente o crea un nuevo issue para vincularlo con la tarea de Jira. Copia la URL del issue.
+
+3. **Agregar la URL del issue en la descripción de la tarea en Jira**: En la tarea de Jira, agrega la URL del issue de GitHub en la descripción o en un comentario. Esto proporcionará un enlace directo a la discusión y los cambios en GitHub.
+
+4. **Realizar los cambios en GitHub**: Utiliza la URL del issue en GitHub para acceder directamente al issue y realizar los cambios de código necesarios.
+
+5. **Comunicar el progreso en Jira**: A medida que trabajes en los cambios en GitHub, es importante mantener actualizada la tarea de Jira. Comunica el progreso y los comentarios relevantes en la tarea, y menciona el issue de GitHub en los comentarios para facilitar la referencia cruzada.
+
+6. **Vincular la rama creada en Jira a la issue**: Desde **Github** tendremos la opción en la issue de development donde podremos indicar la rama creada en **Jira**.
+Con estos pasos, has vinculado una tarea de Jira a un issue específico en GitHub. Esto permite mantener una conexión clara y rastreable entre el trabajo en Jira y los cambios en GitHub, lo que facilita la colaboración y la trazabilidad en el desarrollo del proyecto.
+

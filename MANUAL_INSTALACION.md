@@ -11,7 +11,7 @@
         * [1.2.3. Cambios que afecten a la configuración de WildFly](#123-cambios-que-afecten-a-la-configuración-de-wildfly)
 * [2. Tests](#2-tests)
     * [2.1 Tests por módulo](#21-tests-por-módulo)
-    * [2.2 El módulo tests](#22-el-módulo-test)
+    * [2.2 El módulo tests](#22-el-módulo-tests)
     * [2.3 Ejecución de los tests](#23-ejecución-de-los-tests)
         * [2.3.1 Ejecución de los tests en Maven](#231-ejecución-de-los-tests-en-maven)
         * [2.3.2 Ejecución de los tests en Eclipse](#232-ejecución-de-los-tests-en-eclipse)
@@ -186,7 +186,7 @@ módulo `ear` al realizar la construcción. Existen dos formas de hacer esto:
 [Windows] bin\add-user.bat
 ```
 
-#### 1.1.2. Ejecución en un WildFly con Maven
+#### 1.2.2. Ejecución en un WildFly con Maven
 El POM de este proyecto se ha configurado para que sea posible construir y
 ejecutar la aplicación sin más dependencia externa que la base de datos MySQL.
 
@@ -210,7 +210,7 @@ comando:
 mvn wildfly:shutdown install -P wildfly-mysql-run,-wildfly-embedded-h2
 ```
 
-#### 1.1.3. Cambios que afecten a la configuración de WildFly
+#### 1.2.3 Cambios que afecten a la configuración de WildFly
 Los cambios en la configuración del servidor WildFly afectan en varios niveles
 al proyecto.
 
@@ -377,10 +377,6 @@ si se desean utilizar serán necesario descargar el *driver* Gecko
 ```
 -Dwebdriver.gecko.driver=<ruta al driver nativo>
 ```
-
-Al final la configuración quedaría como en la siguiente imagen:
-
-![IntelliJ configuración test](additional-material/images/intelliJ-test.png)
 
 ### 2.4 Análisis de los resultados de los tests
 Cada vez que se ejecutan los tests se generarán varios ficheros con información

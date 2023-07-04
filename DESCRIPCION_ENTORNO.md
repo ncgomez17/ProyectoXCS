@@ -9,7 +9,7 @@
   * [3.3 Git y GitHub](#33-git-y-github)
   * [3.4 Github-Actions](#34-github-actions)
   * [3.5 WildFly local](#35-wildfly-local)
-  * [3.6 MySQL 5+](#36-mysql-5-)
+  * [3.6 MySQL 5+](#36-mysql-5)
 
 
 ## 1. Empezando
